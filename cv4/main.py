@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 data_hf = pd.read_csv("heart_failure_clinical_records_dataset.csv")
@@ -46,11 +47,8 @@ print(corr)
 
 
 plt.figure(figsize=(10, 8))
-plt.imshow(corr, cmap='coolwarm', interpolation='nearest')
-plt.colorbar()
-plt.xticks(range(len(corr.columns)), corr.columns, rotation=90)
-plt.yticks(range(len(corr.columns)), corr.columns)
-plt.title("Correlation Matrix")
+sns.heatmap(corr, annot=True, fmt='.2f', cmap='coolwarm', vmin=0, vmax=1)
+plt.title("Correlation ")
 plt.tight_layout()
 plt.show()
 
