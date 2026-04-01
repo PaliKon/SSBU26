@@ -7,11 +7,13 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from typing import Tuple, List, Optional, Callable
+from sklearn.preprocessing import RobustScaler
 
 class Dataset:
     """
     This class handles loading, preprocessing, analyzing, and visualizing the breast cancer dataset.
     """
+
 
     def __init__(self):
         """
@@ -63,18 +65,47 @@ class Dataset:
         stratify_param = self.target if stratify else None
         return train_test_split(self.data, self.target, test_size=test_size, stratify=stratify_param, random_state=random_state)
 
+    def calculate_statistics(self):
+        df = pd.DataFrame(self.data, columns=self.feature_names)
+
+        statistics = pd.DataFrame({
+            "mean": df.mean(),
+            "median": df.median(),
+            "std": df.std(),
+        })
+        return statistics
+
     def scale_data(self, X_train: np.ndarray, X_test: np.ndarray, scale_type: str = 'standard') -> Tuple[np.ndarray, np.ndarray]:
         """
         Scales the training and test datasets using the specified scaling method.
         """
         scalers = {
             'standard': StandardScaler(),
-            'normalize': MinMaxScaler()
+            'normalize': MinMaxScaler(),
+            'robust': RobustScaler()
         }
         scaler = scalers.get(scale_type)
         if not scaler:
             raise ValueError("Invalid scale_type. Choose 'standard' or 'normalize'.")
         return scaler.fit_transform(X_train), scaler.transform(X_test)
+
+    def summarize_features(self, feature_names = None):
+        """
+        summary for each feature in the dataset.
+        if feature_names is None, summarize all features
+        """
+        df = pd.DataFrame(self.data, columns=self.feature_names)
+
+        if feature_names is not None:
+            df = df[feature_names]
+
+        summary = pd.DataFrame({
+            "unique_values": df.nunique(),
+            "most_common_values": df.mode().iloc[0],
+            "most_common_frequency": df.apply(lambda col: col.value_counts().iloc[0])
+        })
+
+        return summary
 
     def visualize_feature_distribution(self, feature_index: int, scaled_data: Optional[np.ndarray] = None, title_suffix: str = ""):
         """

@@ -1,4 +1,4 @@
-from data_handling_done import Dataset
+from data_handling import Dataset
 
 if __name__ == "__main__":
     dataset_std = Dataset()
@@ -19,3 +19,13 @@ if __name__ == "__main__":
     dataset_norm.plot_all_features_before_after_scaling(X_train_n, X_train_norm, scale_type='Normalization')
     dataset_norm.plot_feature_before_after_scaling(X_train_n, X_train_norm, feature_name='mean area')
     dataset_norm.plot_box_plots(scaled_data=X_train_norm, target=y_train_n)
+
+    #robust porovnavnie
+    dataset_robust = Dataset()
+
+    X_train_r, X_test_r, y_train_r, _ = dataset_robust.split_data()
+    X_train_robust, _ = dataset_robust.scale_data(X_train_r, X_test_r, scale_type='robust')
+
+    dataset_robust.plot_all_features_before_after_scaling(X_train_r, X_train_robust, scale_type='robust')
+    dataset_robust.plot_feature_before_after_scaling(X_train_r, X_train_robust, feature_name='mean area')
+    dataset_robust.plot_box_plots(scaled_data=X_train_robust, target=y_train_r)

@@ -1,7 +1,20 @@
-from data_handling_done import Dataset
+from data_handling import Dataset
 
 if __name__ == "__main__":
     dataset = Dataset()
+    #uloha 1
+    stats = dataset.calculate_statistics()
+    print(stats)
+    #uloha 3 a 4
+    print("\nAll features")
+    summary = dataset.summarize_features()
+    print(summary.to_string())
+
+    print("\nselected features")
+    selected_features = ['mean radius', 'mean texture', 'mean area']
+    summary = dataset.summarize_features(selected_features)
+    print(summary.to_string())
+
 
     # plot class distribution
     dataset.plot_class_distribution()
