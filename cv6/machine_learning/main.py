@@ -8,6 +8,8 @@ from data.data_handling_refactored import DatasetRefactored
 from experiment.experiment import Experiment
 from plotting.experiment_plotter import ExperimentPlotter
 from utils.logger import Logger
+#uloha 1
+from sklearn.ensemble import RandomForestClassifier
 
 
 def initialize_models_and_params():
@@ -18,11 +20,24 @@ def initialize_models_and_params():
     - models: dict, dictionary of model instances.
     - param_grids: dict, dictionary of hyperparameter grids.
     """
+    #uloha1
     models = {
-        "Logistic Regression": LogisticRegression(solver='liblinear')
+        "Logistic Regression": LogisticRegression(solver='liblinear'),
+        "Random Forest": RandomForestClassifier(random_state=42),
+
     }
     param_grids = {
-        "Logistic Regression": {"C": [0.1, 1, 10], "max_iter": [10000]}
+        "Logistic Regression": {"C": [0.1, 1, 10],
+                                "max_iter": [10000]
+
+
+            },
+        "Random Forest": {"n_estimators": [50, 100, 200],
+                          "max_depth": [None, 5, 10],
+                          "min_samples_split": [2, 5, 10],
+                          "min_samples_leaf": [1, 2, 4]
+                          }
+
     }
     return models, param_grids
 
@@ -59,10 +74,16 @@ def plot_results(experiment, results, logger):
     """
     logger.info("Generating plots for the experiment results...")
     plotter = ExperimentPlotter()
-    plotter.plot_metric_density(results)
+    #uloha2 uprava density grafy
+    plotter.plot_metric_density(results, metrics=["accuracy", "f1_score", "roc_auc", "precision"])
     plotter.plot_evaluation_metric_over_replications(
         experiment.results.groupby('model')['accuracy'].apply(list).to_dict(),
         'Accuracy per Replication and Average Accuracy', 'Accuracy')
+#uloha2 pridanie grafu priebehu pre precision
+    plotter.plot_evaluation_metric_over_replications(
+        experiment.results.groupby('model')['precision'].apply(list).to_dict(),
+        'Precision per Replication and Average Precision', 'Precision')
+
     plotter.plot_confusion_matrices(experiment.mean_conf_matrices)
     plotter.print_best_parameters(results)
     logger.info("Plots generated successfully.")

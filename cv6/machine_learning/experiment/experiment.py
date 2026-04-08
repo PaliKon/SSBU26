@@ -13,7 +13,7 @@ from models.model_trainer import ModelTrainer
 class Experiment:
     """A class to handle the entire experiment of training and evaluating models."""
 
-    def __init__(self, models, models_params, n_replications=10, logger=None):
+    def __init__(self, models, models_params, n_replications=30, logger=None):
         """
         Initialize the Experiment with models, their parameters, and number of replications.
 
@@ -32,11 +32,11 @@ class Experiment:
         self.logger = logger
         os.makedirs("outputs", exist_ok=True)
         self.__initialize_csv_file()
-
+#uloha2
     def __initialize_csv_file(self):
         """Initialize the CSV file with headers."""
         with open(self.accuracies_file, 'w') as file:
-            file.write("Model,Replication,Accuracy,F1 Score,ROC AUC,Best Parameters\n")
+            file.write("Model,Replication,Accuracy,F1 Score,ROC AUC,Precision,Best Parameters\n")
 
     def run(self, X, y):
         """Run the experiment over multiple replications."""
@@ -82,26 +82,30 @@ class Experiment:
 
         # train and evaluate the model
         trainer.train(X_train, y_train)
-        accuracy, f1, roc_auc, predictions = trainer.evaluate(X_test, y_test)
-
-        self.__store_results(model_name, replication, accuracy, f1, roc_auc, best_params)
+        #uloha2 uprava volanie
+        accuracy, f1, roc_auc,precision, predictions = trainer.evaluate(X_test, y_test)
+#uloha2 volanie uprava
+        self.__store_results(model_name, replication, accuracy, f1, roc_auc,precision, best_params)
         self.replication_conf_matrices[model_name].append(confusion_matrix(y_test, predictions))
-
-    def __store_results(self, model_name, replication, accuracy, f1, roc_auc, best_params):
+#uloha2 definicia uprava
+    def __store_results(self, model_name, replication, accuracy, f1, roc_auc,precision, best_params):
         """Store the results of a single evaluation."""
+        #uloha2 uprava dataframu
         new_row = pd.DataFrame({
             'model': model_name,
             'replication': replication + 1,
             'accuracy': accuracy,
             'f1_score': f1,
             'roc_auc': roc_auc,
+            'precision': precision,
             'best_params': [best_params]
         })
         self.results = pd.concat([self.results, new_row], ignore_index=True)
 
         # append the results to the CSV file
         with open(self.accuracies_file, 'a') as file:
-            file.write(f"{model_name},{replication + 1},{accuracy:.4f},{f1:.4f},{roc_auc:.4f},\"{best_params}\"\n")
+            #uloha2 uprava zapisu
+            file.write(f"{model_name},{replication + 1},{accuracy:.4f},{f1:.4f},{roc_auc:.4f},{precision:.4f},\"{best_params}\"\n")
 
     def __calculate_mean_conf_matrices(self):
         """Calculate the mean confusion matrisx for each model."""

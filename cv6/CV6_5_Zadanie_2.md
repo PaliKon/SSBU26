@@ -14,7 +14,14 @@ Pridajte do kódu ďalší model strojového učenia (ľubovoľný), a taktiež 
 
 **Uveďte aký ML model a hodnoty jeho parametrov ste použili:**
 
-#TODO - Popis
+Pridal som model Random FOrest classifier (v main.py - pri komentaroch #Uloha1)
+
+Pre ladenie  parametrov som pouzil grid search s parametrami:
+n_estimators: 50, 100,200
+max_depth : none,5,10
+min_samples_split: 2,5,10
+min_samples_leaf : 1,2,4
+
 
 ### Úloha 2 (2b)
 
@@ -22,17 +29,23 @@ Implementujte ďalšiu (ľubovoľnú) metriku pre evaluáciu modelov. Nezabudnit
 
 **Uveďte akú metriku ste doplnili:**
 
-#TODO - Metrika
-
+Doplnil som metriku PRecision - vyjadruje podiel spravne klasivikovanych pozitivnych pripadov zo vsetkych, ktore boli oznacene ako pozitivne
+Zmeny som robil v main.py , experiment.py , model_trainer.py ...ak som na nic nezabudol, tak vsetky vsetky su vzdy pri komentu #uloha2 
 ### Úloha 3 (1b)
 
 Do implementácie pridajte ukladanie všetkých grafov, ktoré sa vytvárajú pri behu skriptu `main.py`` v adresári `machine_learning`.
-
+Grafy vytvorene pocas behu sa ukladaju do saved_plots priecinku
+uprava  a pridanie definicie v base_plotter.py a experiment_plotter.py pod #uloha3 poznamkami
 ### Úloha 4 (1b)
 
 **V skripte `main.py`** nastavte počet replikácií na vyššie číslo (rozumne, podľa vlastného uváženia). Vykonajte beh aplikácie s Vašou implementáciou. Po skončení behu zanalyzujte vygenerované grafy a pár vetami popíšte ich interpretáciu. (Napr. v čom je ktorý ML model lepší, a pod.)
 
-#TODO - Interpretácia
+pocet replikacii som dal na 30
+Oba modely dosahuju vysoke hodnoty vsetkych metrik.
+Logistic Regresion  ich dosahuje vo vacsine o trochu lepsie a stabilnejsie nez Random frorest.
+Z grafov hustoty rozdelenia vidiet ako hodnoty pri logistic regression su posunute viac doprava cize vyssia prenost a skore.
+Matice vyjadruju ze random forest robi viac chyb typu false negative oproti Logistic regression
+V zavere Logistic regression ma lepsie hodnoty ,cize je to vhodnejsi model
 
 **Odovzdávanie riešenia:** Ako súčasť riešenia zahrňte okrem odpovedí na otázky aj skripty s Vašou implementáciou, vygenerované logy a grafy (všetko môžete dať na Github).
 
