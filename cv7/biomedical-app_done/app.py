@@ -133,6 +133,26 @@ def server(input, output, session):
     @render.text
     def txt_status_code():
         return txt_status.get()
+#uloha 2 pridanie  metody na vypocet avg hodnoty pre vybrane meranie, doplnenie reactive.event aby vypisalo az po kliknuti a nie aj pri spusteni appky
+    @output
+    @render.text
+    @reactive.event(input.calculate_avg)
+    def avg_value():
+
+
+        measurement_type = input.measurement_type()
+        patient_data = patient_data_dict.get()
+        all_values = []
+        for patient_id, df in patient_data.items():
+            if measurement_type in df.columns:
+                all_values.extend(df[measurement_type].dropna().tolist())
+
+        if not all_values:
+            return f"No found data for {measurement_type}"
+
+        avg = sum(all_values) / len(all_values)
+        return f"Average value of {measurement_type} is {avg:.2f}"
+
 
 
 app = App(shiny_ui.app_ui, server)

@@ -19,7 +19,7 @@ app_ui = ui.page_fluid(
             background-color: #f2f2f2;
         }
     """),
-    
+    #uloha2 pridanie tlacitla na vypocet priemernej hodnoty s output textom
     ui.layout_sidebar(
         ui.sidebar(
             ui.panel_title("Biomedical Data Visualization and Analysis"),
@@ -33,6 +33,8 @@ app_ui = ui.page_fluid(
             ui.input_action_button("generate_data", "Generate Data"),
             ui.input_radio_buttons("view_type", "Choose View",
                                    choices=list(data.views.values()), selected="Visualization"),
+            ui.input_action_button("calculate_avg", "Calculate AVG Vale"),
+            ui.output_text("avg_value"),
             # Dynamic UI element
             ui.output_ui("dynamic_content"),
         ),

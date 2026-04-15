@@ -8,6 +8,7 @@ Rozšírte aplikáciu o možnosť zobrazenia nového typu grafu - napríklad "Bo
 - Upravte funkciu `create_plot` v `utils.py`, aby podporovala vykreslenie boxplotu.
 - Otestujte aplikáciu s rôznymi rozsahmi hodnôt.
 
+Zmeny som spravil v suboroch utils.py a data_unit.py aj s popisom v poznamkach pod #Uloha1 
 ---
 
 ## Úloha 2: Zobrazenie priemernej hodnoty merania pre všetkých pacientov
@@ -18,3 +19,4 @@ Pridajte do aplikácie možnosť vypočítať a zobraziť priemernú hodnotu vyb
 - Implementujte obsluhu udalosti v `app.py`, ktorá vypočíta priemer pre vybrané meranie zo všetkých pacientov.
 - Zobrazte výsledok v textovom výstupe `ui.output_text("txt_status_code")`, alebo vytvorte nový textový výstup napr. `ui.output_text("avg_value")`.
 
+Zmeny som spravil v suboroch app.py a app_ui.py aj s popisom v poznamkach pod #Uloha2 
