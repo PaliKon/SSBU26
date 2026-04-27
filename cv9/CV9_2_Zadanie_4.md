@@ -17,9 +17,10 @@ Normalizujte distribúciu datasetu (pre premenné aj vzorku).
 (Vyberte akúkoľvek kombináciu operácií, ktorá je podľa Vás najlepšia).
 
 **Ktoré operácie ste pri normalizácii použili?**
-Sample normalization: # TODO
-Data Transformation:  # TODO
-Data Scaling:         # TODO
+Sample normalization: None
+Data Transformation:  Log transformation
+
+Data Scaling:         Auto scaling
 ### Úloha 2 (4b)
 
 Použite ľubovoľné štatistické metódy na analýzu datasetu (napr. t-test, correlations, PCA, PLS-DA, Dendrogram, Heatmap, K-means, RandomForest, ..) 
@@ -27,11 +28,11 @@ Použite ľubovoľné štatistické metódy na analýzu datasetu (napr. t-test, 
 **Uveďte aspoň 4 skutočnosti (z 4 rôznych metód), ktoré ste zistili analýzou datasetu:**
 
 (Napr. Pri použití pearsonovho korelačného koeficientu je najvyššia pozitívna korelácia medzi premennými x a y, a koeficient korelácie je 0.992.)
-1: # TODO
-2: # TODO
-3: # TODO
-4: # TODO
-
+1: T-test identifikoval 88 statisticky významných premennych p< 0.05, čo naznacuje vyznamne rozdiely medzi kontrolnou skupinou a pacientmi so zavaznym ochorenim obliciek.
+2: PCA analyza ukazuje ciastocne oddelenie skupin ( control vs patient), pricom prve halvne komponenty su štatisticky vyznamné p= 0.001, to naznacuje rozdiely v metabolickom profile medzi skupinami
+3: Heatmap s hierarchickym clusteringom ukazuje zhlukovanie vzoriek podla skupin, co potvrdzuje rozdiely medzi kontrolnou skupnou a pacientmi na zakladne metabolických profilov
+4: Random Forest model dosiahol nizku chybu klasifikacie OOB error ≈ 0.08, co naznacuje dobru schopnost modelu rozlisit medzi kontrolnou skupinou a pacientmi. Vacsina kontrolnych vzoriek bola klasifikovana spravne
+Zaver - vysledky viacerych tychto statistickych metod  konzistentne ukazuju rozdiely medzi kontrolnou skupinou  a pacientmi so zavaznym ochorenim obliciek. Poukazuje to na vyznamne zmeny v metabolickom profile
 Vygenerujte report z vykonanej analýzy a celý výsledný zip file odovzdajte ako prílohu k riešeniu zadania.
 
 ----
